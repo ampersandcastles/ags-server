@@ -95,6 +95,11 @@ router.post('/login', async (req, res) => {
 });
 
 
+router.get('/practice', (req, res) => {
+    res.send({
+        message: "hello"
+    })
+})
 
 
 
