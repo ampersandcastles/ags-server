@@ -1,6 +1,7 @@
 const {UniqueConstraintError} = require('sequelize');
 const router = require('express').Router();
 const {UserModel} = require('../models');
+const middleware = require('../middleware');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
@@ -99,6 +100,11 @@ router.get('/practice', (req, res) => {
     res.send({
         message: "hello"
     })
+})
+
+
+router.put('/admin/edit', middleware.validate async(req, res) => {
+
 })
 
 
