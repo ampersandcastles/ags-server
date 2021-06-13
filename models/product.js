@@ -3,7 +3,7 @@ const db = require('../db');
 
 
 const Product = db.define("product", {
-  name: {
+  nameOfProduct: {
     type: DataTypes.STRING,
     allowNull: false,
   },
@@ -12,21 +12,17 @@ const Product = db.define("product", {
     allowNull: false,
   },
   description: {
-    type: DataTypes.STRING(100),
+    type: DataTypes.STRING,
     allowNull: false,
+  },
+  type: {
+    type: DataTypes.STRING,
+    allowNull:false
   },
   price: {
-    type: DataTypes.BOOLEAN,
+    type: DataTypes.STRING,
     allowNull: false,
   },
-  adminDisplay: {
-    type: DataTypes.BOOLEAN,
-    allowNull: false,
-  },
-  owner: {
-    type: DataTypes.INTEGER,
-    allowNull: false
-  }, 
   photoURL: {
         type: DataTypes.STRING,
         allowNull: false
