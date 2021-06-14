@@ -12,7 +12,7 @@ const middleware = require('./middleware');
 app.use(middleware.headers);
 
 app.use('/user', controllers.usercontroller);
-// app.use("/product", product);
+app.use("/product", controllers.productcontroller);
 
 
 
