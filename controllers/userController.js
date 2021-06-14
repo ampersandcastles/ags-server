@@ -103,9 +103,9 @@ router.get('/practice', (req, res) => {
 })
 
 
-router.put('/admin/edit', middleware.validate async(req, res) => {
+// router.put('/admin/edit', middleware.validate async(req, res) => {
 
-})
+// })
 
 
 
