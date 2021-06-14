@@ -1,33 +1,37 @@
 const jwt = require('jsonwebtoken');
-const User = require('../db').import('../models/user');
+const {UserModel} = require('../models');
 
-const validateSession = (req, res, next) => {
-    const token = req.headers.authorization;
-    console.log('token --> ', token);
-    if(!token) {
-        return res.status(403).send({auth: false, message:"No token provided"})
-    } else {
-        jwt.verify(token, process.env.JWT_SECRET, (err,decodeToken) => {
-            console.log('decodeToken -->', decodeToken);
-            if(!err && decodeToken) {
-                User.findOne({
-                    where: {
-                        id: decodeToken.id
-                    }
+
+const validateSession = async (req, res, next) => {
+
+    if(req.method ==="OPTIONS"){
+        return next()
+    }else if(req.headers.authorization){
+        const {authorization} = req.headers;
+        const payload = authorization ? jwt.verify(authorization, process.env.JWT_SECRET) : undefined
+
+        if (payload) {
+            let foundUser = await UserModel.findOne({
+                where: {id: payload.id}
+            });
+
+            if (foundUser){
+                req.user = foundUser;
+                next()
+            }else {
+                res.status(400).send({
+                    message: "Not authorized."
                 })
-                .then(user => {
-                    console.log('user --> ', user);
-                    if (!user) throw err;
-                    console.log('req --> ', req);
-                    req.user = user;
-                    return next();
-                })
-                .catch(err => next(err));
-            } else {
-                req.errors = err;
-                return res.status(500).send('Not Authorized');
             }
-        });
+        }else {
+            res.status(401).send({
+                message: "Invalid token."
+            })
+        }
+    }else {
+        res.status(403).send({
+            message: 'Forbidden'
+        })
     }
 };
 
