@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 module.exports = (sequelize, DataTypes) => {
     const Product = sequelize.define("product", {
       name: {
@@ -22,13 +23,39 @@ module.exports = (sequelize, DataTypes) => {
       },
       owner: {
         type: DataTypes.INTEGER,
-        allowNull: false
-      },
-  
-      photURL: {
+=======
+const {DataTypes} = require('sequelize');
+const db = require('../db');
+
+
+const Product = db.define("product", {
+  nameOfProduct: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  availability: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+  },
+  description: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  type: {
+    type: DataTypes.STRING,
+    allowNull:false
+  },
+  price: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  photoURL: {
         type: DataTypes.STRING,
+>>>>>>> e973021718b30d31cfb7dfcbda5f08458f529804
         allowNull: false
-      },
-    });
-    return Product;
-  };
+  },
+});
+ 
+
+module.exports = Product;
+  
