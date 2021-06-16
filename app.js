@@ -4,12 +4,12 @@ const app = Express();
 app.use(Express.json());
 const controllers = require('./controllers');
 const dbConnection = require('./db');
-const middleware = require('./middleware');
+// const middleware = require('./middleware');
 
 
 
 
-app.use(middleware.headers);
+// app.use(middleware.headers);
 
 app.use('/user', controllers.usercontroller);
 app.use("/product", controllers.productcontroller);

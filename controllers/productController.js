@@ -1,14 +1,14 @@
 const router = require('express').Router();
 const {ProductModel} = require('../models');
 
-let validateSession = require("../middleware/validateSession");
+// let validateSession = require("../middleware/validateSession");
 
 
 
 /*********************
  * PRODUCT - CREATE A NEW PRODUCT TO BE ADDED TO DATABASE
  ********************/
-router.post('/', validateSession, async (req, res) => {
+router.post('/', async (req, res) => {
     const {nameOfProduct, availability, 
         description, type, price, photoURL} = req.body;
 
@@ -31,7 +31,7 @@ router.post('/', validateSession, async (req, res) => {
 /*********************
  * PRODUCT - GETS ALL PRODUCTS FOR USER
  ********************/
- router.get("/all", validateSession, async (req, res) => {
+ router.get("/all", async (req, res) => {
     try {
         const allProdcuts = await ProductModel.findAll();
         res.status(200).json(allProdcuts)
@@ -46,7 +46,7 @@ router.post('/', validateSession, async (req, res) => {
 /************************
  * PRODUCT - GET All PRODUCTS BY TYPE
  ***********************/
- router.get("/:type", validateSession, async (req, res) => {
+ router.get("/:type", async (req, res) => {
     try {
         const specificProduct = await ProductModel.findAll({
             where: {type: req.params.type}
@@ -68,7 +68,7 @@ router.post('/', validateSession, async (req, res) => {
 /*********************
  * PRODUCT - UPDATE INDIVIDUAL PRODUCT
  ********************/
- router.put("/edit/:id", validateSession, async (req, res) => {
+ router.put("/edit/:id", async (req, res) => {
     const {nameOfProduct, availability, 
         description, type, price, photoURL} = req.body;
 
@@ -95,7 +95,7 @@ router.post('/', validateSession, async (req, res) => {
  * PRODUCT - DELETE INDIVIDUAL PRODUCT 
  ********************/
 
- router.delete("/delete/:id", validateSession, async (req, res) => {
+ router.delete("/delete/:id", async (req, res) => {
     try {
         const deletedProduct = await ProductModel.destroy({
             where: {id: req.params.id}
