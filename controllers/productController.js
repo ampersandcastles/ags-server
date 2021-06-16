@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const {ProductModel} = require('../models');
 
-// let validateSession = require("../middleware/validateSession");
+let validateSession = require("../middleware/validateSession");
 
 
 
@@ -31,7 +31,7 @@ router.post('/', async (req, res) => {
 /*********************
  * PRODUCT - GETS ALL PRODUCTS FOR USER
  ********************/
- router.get("/all", async (req, res) => {
+ router.get("/all", validateSession, async (req, res) => {
     try {
         const allProdcuts = await ProductModel.findAll();
         res.status(200).json(allProdcuts)
@@ -46,7 +46,7 @@ router.post('/', async (req, res) => {
 /************************
  * PRODUCT - GET All PRODUCTS BY TYPE
  ***********************/
- router.get("/:type", async (req, res) => {
+ router.get("/:type", validateSession, async (req, res) => {
     try {
         const specificProduct = await ProductModel.findAll({
             where: {type: req.params.type}
